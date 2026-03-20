@@ -108,6 +108,18 @@ export const getAvatar = (phone) =>
 export const getUserInfo = (phone) =>
   api('POST', '/user/info', { Phone: [`${phone}@s.whatsapp.net`] });
 
+// ===== META ADS =====
+
+export const setMetaAdsToken = (metaToken) =>
+  api('POST', '/session/meta-ads/config', { meta_ads_token: metaToken });
+
+export const getMetaAdsConfig = () => api('GET', '/session/meta-ads/config');
+
+export const deleteMetaAdsConfig = () => api('DELETE', '/session/meta-ads/config');
+
+export const testMetaAdsToken = (metaToken) =>
+  api('POST', '/session/meta-ads/test', { token: metaToken });
+
 // ===== WEBHOOK =====
 
 // Use ['Message'] para receber mensagens. Outros eventos são opcionais.

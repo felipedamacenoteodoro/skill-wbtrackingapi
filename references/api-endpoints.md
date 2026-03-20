@@ -156,6 +156,37 @@ Response: {"code": 200, "data": {"webhook": "https://...", "subscribe": ["All"]}
 DELETE /webhook
 </endpoint>
 
+## Meta Ads Tracking
+
+<endpoint name="Configurar Token Meta Ads">
+POST /session/meta-ads/config
+Header: token: {TOKEN}
+Body: {"meta_ads_token": "EAAxxxxxxxxxxxxxxxx"}
+Response: {"success": true, "message": "Meta Ads token saved successfully"}
+Notes: Salva o token de acesso do Meta Ads (criptografado). Precisa da permissão ads_read. Quando configurado, o webhook de mensagens inclui automaticamente o objeto tracking com dados de campanha.
+</endpoint>
+
+<endpoint name="Verificar Config Meta Ads">
+GET /session/meta-ads/config
+Header: token: {TOKEN}
+Response: {"success": true, "has_meta_token": true}
+Notes: Retorna se o token está configurado. O token nunca é retornado por segurança.
+</endpoint>
+
+<endpoint name="Remover Config Meta Ads">
+DELETE /session/meta-ads/config
+Header: token: {TOKEN}
+Response: {"success": true, "message": "Meta Ads configuration deleted"}
+</endpoint>
+
+<endpoint name="Testar Token Meta Ads">
+POST /session/meta-ads/test
+Header: token: {TOKEN}
+Body: {"token": "EAAxxxxxxxxxxxxxxxx"}
+Response: {"success": true, "is_valid": true, "scopes": ["ads_read", "ads_management"]}
+Notes: Valida um token Meta Ads antes de salvar. Verifica se é válido e retorna as permissões.
+</endpoint>
+
 ## Groups
 
 <endpoint name="List Groups">
