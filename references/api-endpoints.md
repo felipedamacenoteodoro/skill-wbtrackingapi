@@ -187,6 +187,33 @@ Response: {"success": true, "is_valid": true, "scopes": ["ads_read", "ads_manage
 Notes: Valida um token Meta Ads antes de salvar. Verifica se é válido e retorna as permissões.
 </endpoint>
 
+## UTM Links
+
+<endpoint name="Criar UTM Link">
+POST /admin/utm-links
+Header: Authorization: {ADMIN_TOKEN}
+Body: {"name": "Bio Instagram", "phone": "5511999999999", "message": "Olá! Vi no Instagram", "utm_source": "instagram", "utm_medium": "bio_link", "utm_campaign": "captacao_leads", "utm_content": "link_bio"}
+Response: {"success": true, "data": {"id": "abc", "code": "627493bd", "short_url": "https://wbtrackingapi.com.br/r/627493bd", "wa_url": "https://wa.me/5511999999999?text=..."}}
+Notes: Cria um link rastreável. O short_url redireciona para wa.me com hash invisível na mensagem. Quando o usuário envia a mensagem, o tracking é preenchido automaticamente com os UTM params. O hash usa Zero-Width Unicode characters — invisível ao usuário.
+</endpoint>
+
+<endpoint name="Listar UTM Links">
+GET /admin/utm-links
+Header: Authorization: {ADMIN_TOKEN}
+Response: {"success": true, "data": [{"id": "abc", "code": "627493bd", "name": "Bio Instagram", "phone": "5511999999999", "short_url": "https://...", "utm_source": "instagram", "clicks": 42}]}
+</endpoint>
+
+<endpoint name="Excluir UTM Link">
+DELETE /admin/utm-links/{id}
+Header: Authorization: {ADMIN_TOKEN}
+Response: {"success": true, "message": "Link deleted"}
+</endpoint>
+
+<endpoint name="Redirect (público)">
+GET /r/{code}
+Notes: Endpoint público. Registra o clique, incrementa contador, e redireciona para wa.me com hash invisível na mensagem pré-preenchida. Não requer autenticação.
+</endpoint>
+
 ## Groups
 
 <endpoint name="List Groups">

@@ -120,6 +120,15 @@ export const deleteMetaAdsConfig = () => api('DELETE', '/session/meta-ads/config
 export const testMetaAdsToken = (metaToken) =>
   api('POST', '/session/meta-ads/test', { token: metaToken });
 
+// ===== UTM LINKS =====
+
+export const createUTMLink = (name, phone, message, source, medium, campaign, content) =>
+  api('POST', '/admin/utm-links', { name, phone, message, utm_source: source, utm_medium: medium, utm_campaign: campaign, utm_content: content });
+
+export const listUTMLinks = () => api('GET', '/admin/utm-links');
+
+export const deleteUTMLink = (id) => api('DELETE', `/admin/utm-links/${id}`);
+
 // ===== WEBHOOK =====
 
 // Use ['Message'] para receber mensagens. Outros eventos são opcionais.
