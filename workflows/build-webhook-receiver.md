@@ -98,7 +98,11 @@ API = os.getenv("WBTRACKINGAPI_URL")
 TOKEN = os.getenv("WBTRACKINGAPI_TOKEN")
 HEADERS = {"token": TOKEN, "Content-Type": "application/json"}
 
-def get_phone(wh): return wh["event"]["Info"]["MessageSource"]["Sender"].replace("@s.whatsapp.net", "")
+# SenderAlt traz o número real. Sender pode ser um LID (ID interno do WhatsApp).
+def get_phone(wh):
+    alt = wh["event"]["Info"]["MessageSource"].get("SenderAlt", "")
+    sender = wh["event"]["Info"]["MessageSource"].get("Sender", "")
+    return (alt or sender).replace("@s.whatsapp.net", "").replace("@lid", "")
 def get_text(wh):
     m = wh["event"]["Message"]
     return m.get("conversation") or (m.get("extendedTextMessage") or {}).get("text") or (m.get("imageMessage") or {}).get("caption") or ""

@@ -14,7 +14,8 @@ Your server receives HTTP POST requests with JSON body.
       "ID": "3EB0ABC123DEF456",
       "MessageSource": {
         "Chat": "5511999999999@s.whatsapp.net",
-        "Sender": "5511999999999@s.whatsapp.net",
+        "Sender": "23257281519663@lid",
+        "SenderAlt": "5511999999999@s.whatsapp.net",
         "IsFromMe": false,
         "IsGroup": false
       },
@@ -89,8 +90,13 @@ Your server receives HTTP POST requests with JSON body.
 
 ```javascript
 // Extract sender phone number (without @s.whatsapp.net)
+// IMPORTANTE: Use SenderAlt para obter o número real do usuário.
+// O campo Sender pode conter um LID (ID interno do WhatsApp), não o número de telefone.
 function getPhone(webhook) {
-  return (webhook.event?.Info?.MessageSource?.Sender || '').replace('@s.whatsapp.net', '');
+  const alt = webhook.event?.Info?.MessageSource?.SenderAlt || '';
+  const sender = webhook.event?.Info?.MessageSource?.Sender || '';
+  const raw = alt || sender;
+  return raw.replace('@s.whatsapp.net', '').replace('@lid', '');
 }
 
 // Extract message text (works for all text message types)

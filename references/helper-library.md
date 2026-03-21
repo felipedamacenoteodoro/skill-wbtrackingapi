@@ -137,7 +137,8 @@ export const createGroup = (name, participants) =>
 
 // ===== WEBHOOK DATA EXTRACTORS =====
 
-export const getPhone = (wh) => (wh.event?.Info?.MessageSource?.Sender || '').replace('@s.whatsapp.net', '');
+// SenderAlt traz o número real. Sender pode ser um LID (ID interno).
+export const getPhone = (wh) => { const alt = wh.event?.Info?.MessageSource?.SenderAlt || ''; const sender = wh.event?.Info?.MessageSource?.Sender || ''; return (alt || sender).replace('@s.whatsapp.net', '').replace('@lid', ''); };
 export const getText = (wh) => { const m = wh.event?.Message; return m?.conversation || m?.extendedTextMessage?.text || m?.imageMessage?.caption || m?.videoMessage?.caption || m?.documentMessage?.caption || ''; };
 export const getMessageType = (wh) => { const m = wh.event?.Message; if (!m) return 'unknown'; if (m.conversation || m.extendedTextMessage) return 'text'; if (m.imageMessage) return 'image'; if (m.audioMessage) return 'audio'; if (m.videoMessage) return 'video'; if (m.documentMessage) return 'document'; if (m.stickerMessage) return 'sticker'; if (m.locationMessage) return 'location'; if (m.contactMessage) return 'contact'; return 'unknown'; };
 export const isFromMe = (wh) => wh.event?.Info?.MessageSource?.IsFromMe || false;
