@@ -80,6 +80,7 @@ Your server receives HTTP POST requests with JSON body.
     "campaign_name": "Summer Campaign 2025",
     "adset_id": "120211345678901",
     "adset_name": "Lookalike Audience",
+    "ad_url": "https://www.instagram.com/p/ABC123/",
   }
 }
 ```
