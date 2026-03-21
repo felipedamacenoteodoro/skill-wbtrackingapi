@@ -68,12 +68,12 @@ Your server receives HTTP POST requests with JSON body.
     }
   },
   "tracking": {
-    "utm_source": "FaceAds",
+    "utm_source": "MetaAds",
     "utm_campaign": "Summer Campaign 2025",
     "utm_medium": "Lookalike Audience",
     "utm_content": "Video Ad - 30s",
     "utm_term": "-",
-    "utm_platform": "MetaAds",
+    "utm_platform": "instagram",
     "ad_id": "120212345678901",
     "ad_name": "Video Ad - 30s",
     "campaign_id": "120210345678901",
@@ -159,7 +159,7 @@ function getTracking(webhook) {
 
 // Check if message came from a paid ad
 function isFromAd(webhook) {
-  return webhook.tracking?.utm_source === 'FaceAds';
+  return webhook.tracking?.utm_source === 'MetaAds';
 }
 
 // Get group JID (for group messages)
@@ -175,7 +175,7 @@ function getGroupJid(webhook) {
 
 | utm_source | utm_platform | Meaning |
 |---|---|---|
-| FaceAds | MetaAds | Message from a Meta Ad (Click-to-WhatsApp) |
+| MetaAds | MetaAds | Message from a Meta Ad (Click-to-WhatsApp) |
 | organico | facebook | Organic click from Facebook |
 | organico | instagram | Organic click from Instagram |
 | Indicacao | - | Message from a shared contact card |

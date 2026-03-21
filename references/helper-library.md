@@ -146,7 +146,7 @@ export const isGroup = (wh) => wh.event?.Info?.MessageSource?.IsGroup || false;
 export const getPushName = (wh) => wh.event?.Info?.PushName || '';
 export const getMessageId = (wh) => wh.event?.Info?.ID || '';
 export const getTracking = (wh) => wh.tracking || { utm_source: 'organico', utm_campaign: '-', utm_medium: '-', utm_content: '-', utm_platform: '-' };
-export const isFromAd = (wh) => wh.tracking?.utm_source === 'FaceAds';
+export const isFromAd = (wh) => wh.tracking?.utm_source === 'MetaAds';
 ```
 
 </helper_module>
